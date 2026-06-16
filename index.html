@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第三会議室 今すぐ予約</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #f7f9fc; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 14px; }
+    .brand-area { display: flex; align-items: center; gap: 16px; min-width: 0; }
+    .brand-logo { width: min(220px, 42vw); height: auto; display: block; }
+    .brand-copy { border-left: 1px solid #dbe3ef; padding-left: 16px; }
+    .card { border: 0; border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+    iframe { width: 100%; min-height: 620px; border: 0; border-radius: 14px; background: #fff; }
+    .big-time { font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; line-height: 1; }
+    .btn-reserve { font-size: 1.35rem; padding: 16px; border-radius: 14px; }
+    @media (max-width: 768px) { iframe { min-height: 430px; } .brand-area { flex-direction: column; align-items: flex-start; gap: 8px; } .brand-copy { border-left: 0; padding-left: 0; } .brand-logo { width: min(200px, 64vw); } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+      <div class="brand-area">
+        <img class="brand-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyODEgNTgiIHdpZHRoPSIyODEiIGhlaWdodD0iNTgiPgogIDxzdHlsZT4KICAgIDpyb290IHsKICAgICAgLS1jMTogIzAwMDA4MDsgLyog4piFIOODoeOCpOODs+OCq+ODqeODvO+8iOWhl+OCiu+8iSovCiAgICAgIC0tczE6ICMwMDAwODA7IC8qIOKYhSDjgrnjg4jjg63jg7zjgq/jgqvjg6njg7wgKi8KICAgICAgLS1zdzogMC45OTIxOyAvKiDjgrnjg4jjg63jg7zjgq/luYUgKi8KICAgIH0KICA8L3N0eWxlPgoKICA8IS0tIEgg5a2XIC0tPgogIDxwYXRoIGZpbGw9InZhcigtLWMxKSIgc3Ryb2tlPSJ2YXIoLS1zMSkiIHN0cm9rZS13aWR0aD0idmFyKC0tc3cpIgogICAgZD0iTTMuMzAyLDMyLjc1MmMwLDEuNTA0LDAuNTk3LDIuOTQ1LDEuNjYxLDQuMDA5YzEuMDYzLDEuMDYzLDIuNTA1LDEuNjYsNC4wMDksMS42NmMxLjUwMywwLDIuOTQ1LTAuNTk4LDQuMDA5LTEuNjYKICAgIGMxLjA2My0xLjA2MywxLjY2LTIuNTA1LDEuNjYtNC4wMDl2LTUuNjY5aDM0LjAxNnY1LjY2OWMwLDEuNTA0LDAuNTk4LDIuOTQ1LDEuNjYxLDQuMDA5YzEuMDYzLDEuMDYzLDIuNTA1LDEuNjYsNC4wMDksMS42NgogICAgYzEuNTAzLDAsMi45NDUtMC41OTgsNC4wMDktMS42NmMxLjA2My0xLjA2MywxLjY2LTIuNTA1LDEuNjYtNC4wMDlWMTAuMDc0YzAtMS41MDMtMC41OTgtMi45NDUtMS42Ni00LjAwOQogICAgYy0xLjA2My0xLjA2My0yLjUwNi0xLjY2LTQuMDA5LTEuNjZjLTEuNTA0LDAtMi45NDYsMC41OTctNC4wMDksMS42NmMtMS4wNjMsMS4wNjMtMS42NjEsMi41MDUtMS42NjEsNC4wMDl2NS42NjlIMTQuNjQxdi01LjY2OQogICAgYzAtMS41MDMtMC41OTctMi45NDUtMS42Ni00LjAwOWMtMS4wNjMtMS4wNjMtMi41MDUtMS42Ni00LjAwOS0xLjY2Yy0xLjUwNCwwLTIuOTQ2LDAuNTk3LTQuMDA5LDEuNjYKICAgIGMtMS4wNjMsMS4wNjMtMS42NjEsMi41MDUtMS42NjEsNC4wMDlWMzIuNzUyIi8+CgogIDwhLS0gSSDlrZfvvIjnuKbmo5LvvIkgLS0+CiAgPHBhdGggZmlsbD0idmFyKC0tYzEpIiBzdHJva2U9InZhcigtLXMxKSIKICAgIGQ9Ik02NS42NjQsMTcuNzg1djE0Ljk2N2MwLDEuNTA0LDAuNTk4LDIuOTQ1LDEuNjYxLDQuMDA5YzEuMDYzLDEuMDYzLDIuNTA1LDEuNjYsNC4wMDksMS42NgogICAgYzEuNTAzLDAsMi45NDUtMC41OTgsNC4wMDktMS42NmMxLjA2My0xLjA2MywxLjY2LTIuNTA1LDEuNjYtNC4wMDlWMTcuNzg1SDY1LjY2NCIvPgoKICA8IS0tIEkg5a2X77yI5LiK5Li477yJIC0tPgogIDxwYXRoIGZpbGw9InZhcigtLWMxKSIgc3Ryb2tlPSJ2YXIoLS1zMSkiIHN0cm9rZS13aWR0aD0idmFyKC0tc3cpIgogICAgZD0iTTY0LjUzLDEwLjA3NGMwLDEuMzgyLDAuNzE3LDIuNzA4LDEuOTkzLDMuNjg1YzEuMjc1LDAuOTc4LDMuMDA2LDEuNTI2LDQuODExLDEuNTI2CiAgICBjMS44MDQsMCwzLjUzNC0wLjU0OSw0LjgxMS0xLjUyNmMxLjI3NS0wLjk3NywxLjk5Mi0yLjMwMywxLjk5Mi0zLjY4NWMwLTEuMzgyLTAuNzE3LTIuNzA4LTEuOTkyLTMuNjg1CiAgICBjLTEuMjc2LTAuOTc4LTMuMDA3LTEuNTI2LTQuODExLTEuNTI2Yy0xLjgwNSwwLTMuNTM1LDAuNTQ5LTQuODExLDEuNTI2QzY1LjI0Nyw3LjM2Nyw2NC41Myw4LjY5Miw2NC41MywxMC4wNzQiLz4KCiAgPCEtLSBSIOWtlyAtLT4KICA8bGluZSBmaWxsPSJub25lIiBzdHJva2U9InZhcigtLXMxKSIgc3Ryb2tlLXdpZHRoPSJ2YXIoLS1zdykiIHgxPSIxMDAuNjkiIHkxPSIzMy4zNTYiIHgyPSIxNDYuODk1IiB5Mj0iNTQuOTAyIi8+CiAgPHBhdGggZmlsbD0idmFyKC0tYzEpIiBzdHJva2U9InZhcigtLXMxKSIgc3Ryb2tlLXdpZHRoPSJ2YXIoLS1zdykiCiAgICBkPSJNMTQ2Ljg5NSw1NC45MDJjMS4zNjEsMC42MzIsMi45MTksMC42OTcsNC4zMjksMC4xODNjMS40MTEtMC41MTQsMi41Ni0xLjU2NiwzLjE5NS0yLjkyNwogICAgYzAuNjM1LTEuMzYsMC43MDQtMi45MTgsMC4xOTMtNC4zMjlzLTEuNTYyLTIuNTYzLTIuOTIxLTMuMjAxbC0yNy45LTEzLjAxaDYuNTAzYzMuMTgzLTAuNTg0LDYuMDYxLTIuMjY1LDguMTMyLTQuNzUxCiAgICBzMy4yMDYtNS42MiwzLjIwNi04Ljg1NmMwLTMuMjM2LTEuMTM0LTYuMzctMy4yMDYtOC44NTVzLTQuOTQ5LTQuMTY3LTguMTMyLTQuNzVIODguMzQyYy0xLjUwNCwwLTIuOTQ2LDAuNTk3LTQuMDA5LDEuNjYKICAgIGMtMS4wNjMsMS4wNjMtMS42NjEsMi41MDUtMS42NjEsNC4wMDl2MjIuNjc4YzAsMS41MDQsMC41OTcsMi45NDUsMS42NjEsNC4wMDljMS4wNjMsMS4wNjMsMi41MDUsMS42Niw0LjAwOSwxLjY2CiAgICBjMS41MDMsMCwyLjk0NS0wLjU5OCw0LjAwOS0xLjY2YzEuMDYzLTEuMDYzLDEuNjYtMi41MDUsMS42Ni00LjAwOVYxMy40NzZoMzEuNzQ4YzEuMjAzLDAsMi4zNTYsMC40NzgsMy4yMDcsMS4zMjgKICAgIHMxLjMyOSwyLjAwNCwxLjMyOSwzLjIwN2MwLDEuMjAzLTAuNDc4LDIuMzU2LTEuMzI5LDMuMjA3cy0yLjAwNCwxLjMyOS0zLjIwNywxLjMyOWgtMjIuNjc3Yy0xLjI5MSwwLTIuNTQzLDAuNDQtMy41NDksMS4yNDkKICAgIGMtMS4wMDYsMC44MDktMS43MDcsMS45MzYtMS45ODYsMy4xOTZzLTAuMTE5LDIuNTc5LDAuNDUzLDMuNzM2czEuNTIxLDIuMDg0LDIuNjkxLDIuNjI5Ii8+CgogIDwhLS0gTyDlrZcgLS0+CiAgPHBhdGggZmlsbD0idmFyKC0tYzEpIiBzdHJva2U9InZhcigtLXMxKSIgc3Ryb2tlLXdpZHRoPSJ2YXIoLS1zdykiCiAgICBkPSJNMTQ0Ljc1MSwyMS40MTNjMC00LjQ2MSwzLjM0NS04Ljc0LDkuMjk5LTExLjg5NXMxNC4wMjktNC45MjcsMjIuNDQ5LTQuOTI3czE2LjQ5NSwxLjc3MiwyMi40NDksNC45MjcKICAgIHM5LjI5OSw3LjQzNCw5LjI5OSwxMS44OTVzLTMuMzQ1LDguNzQtOS4yOTksMTEuODk2Yy01Ljk1NCwzLjE1NC0xNC4wMjksNC45MjctMjIuNDQ5LDQuOTI3cy0xNi40OTUtMS43NzItMjIuNDQ5LTQuOTI3CiAgICBDMTQ4LjA5NiwzMC4xNTMsMTQ0Ljc1MSwyNS44NzUsMTQ0Ljc1MSwyMS40MTMgTTE1Ni40NTIsMjEuNDEzYzAsMi42NTgsMi4xMTIsNS4yMDgsNS44NzEsNy4wODcKICAgIGMzLjc2MSwxLjg4LDguODU4LDIuOTM2LDE0LjE3NiwyLjkzNmM1LjMxNiwwLDEwLjQxNi0xLjA1NiwxNC4xNzUtMi45MzZjMy43Ni0xLjg4LDUuODcyLTQuNDI5LDUuODcyLTcuMDg3CiAgICBzLTIuMTEyLTUuMjA4LTUuODcyLTcuMDg3Yy0zLjc1OS0xLjg4LTguODU4LTIuOTM2LTE0LjE3NS0yLjkzNmMtNS4zMTcsMC0xMC40MTUsMS4wNTYtMTQuMTc2LDIuOTM2CiAgICBDMTU4LjU2NCwxNi4yMDUsMTU2LjQ1MiwxOC43NTUsMTU2LjQ1MiwyMS40MTMiLz4KCiAgPCEtLSBYIOWtlyAtLT4KICA8cGF0aCBmaWxsPSJ2YXIoLS1jMSkiIHN0cm9rZT0idmFyKC0tczEpIiBzdHJva2Utd2lkdGg9InZhcigtLXN3KSIKICAgIGQ9Ik0yNzQuMTQ3LDI3LjQ5M2MxLjM5NiwwLjU2MywyLjUwOSwxLjY1NiwzLjA5OCwzLjA0MWMwLjU4OSwxLjM4MywwLjYwMywyLjk0NCwwLjA0LDQuMzQKICAgIGMtMC41NjMsMS4zOTUtMS42NTUsMi41MDgtMy4wNCwzLjA5OGMtMS4zODQsMC41ODgtMi45NDQsMC42MDMtNC4zMzksMC4wNGwtMjcuMzYyLTEwLjk0M2wtMjcuNDY3LDEwLjk4NwogICAgYy0xLjExOSwwLjQyNC0yLjM0NSwwLjQ4NC0zLjUsMC4xN2MtMS4xNTYtMC4zMTQtMi4xODMtMC45ODctMi45MzMtMS45MjJjLTAuNzUxLTAuOTM0LTEuMTg2LTIuMDgtMS4yNDMtMy4yNzYKICAgIHMwLjI2NC0yLjM4MSwwLjkyMS0zLjM4M2MwLjY1Ni0xLjAwMSwxLjYxMi0xLjc3LDIuNzMyLTIuMTk1bDE2LjIyNi02LjQ4OWwtMTQuMTA0LTUuNjQxYy0xLjM4Mi0wLjU2OS0yLjQ4NC0xLjY2LTMuMDY1LTMuMDM2CiAgICBjLTAuNTgyLTEuMzc2LTAuNTk3LTIuOTI2LTAuMDQyLTQuMzEzczEuNjM1LTIuNSwzLjAwNS0zLjA5NXMyLjkyMS0wLjYyNiw0LjMxMy0wLjA4NWwyNS4xNjEsMTAuMDYzTDI2Ny42NTEsNC44MQogICAgYzEuMTEyLTAuNDQ1LDIuMzM3LTAuNTI3LDMuNDk3LTAuMjMzYzEuMTYyLDAuMjk0LDIuMiwwLjk0NywyLjk2NywxLjg2OGMwLjc2NywwLjkyLDEuMjIzLDIuMDYsMS4zMDIsMy4yNTQKICAgIGMwLjA3OSwxLjE5NS0wLjIyMiwyLjM4NS0wLjg2LDMuMzk4Yy0wLjYzOCwxLjAxNC0xLjU4MSwxLjc5OS0yLjY5MywyLjI0M2wtMTQuMDUxLDUuNjJMMjc0LjE0NywyNy40OTMiLz4KCjwvc3ZnPgo=" alt="ロゴ">
+        <div class="brand-copy">
+          <h1 class="h3 mb-1">第三会議室</h1>
+        </div>
+      </div>
+      <div class="text-end">
+        <div id="clock" class="big-time">--:--</div>
+        <div id="today" class="text-secondary"></div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2 class="h5 mb-3">今すぐ予約</h2>
+            <div id="status" class="alert alert-info">空き状況を確認しています...</div>
+            <form id="quickForm" onsubmit="reserveNow(event)">
+              <div class="mb-3">
+                <label class="form-label" for="startTime">開始時刻</label>
+                <select class="form-select form-select-lg" id="startTime" required onchange="loadDurationsForSelectedStart()"></select>
+               
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="durationMinutes">使用時間</label>
+                <select class="form-select form-select-lg" id="durationMinutes" required></select>
+                <div class="form-text">重複する組合せは表示されません。</div>
+              </div>
+              <button class="btn btn-primary w-100 btn-reserve" id="reserveBtn" type="submit">この内容で予約</button>
+            </form>
+            <button class="btn btn-outline-secondary w-100 mt-2" onclick="loadOptions()">空き状況を更新</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="h5 mb-3">カレンダー</h2>
+       <iframe
+  id="calendarFrame"
+  data-base-src="https://calendar.google.com/calendar/embed?src=99d08bc66ff7f63982da0b9234c2cd93da58e7f5bc8fef5dd87ed19e6e4b3734%40group.calendar.google.com&ctz=Asia%2FTokyo"
+  src="https://calendar.google.com/calendar/embed?src=99d08bc66ff7f63982da0b9234c2cd93da58e7f5bc8fef5dd87ed19e6e4b3734%40group.calendar.google.com&ctz=Asia%2FTokyo"
+  style="border: 0"
+  width="800"
+  height="600"
+  frameborder="0"
+  scrolling="no">
+</iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // GASをWebアプリとしてデプロイ後、「ウェブアプリURL」を貼り付けてください。
+  const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw2PzrRXlF48zCI2LuiyTEc9QGuJeBOSmG56awWgd5Smm7n5qx0CYjaf6K_gm51FoZ0/exec';
+
+  // GASのSettingsシートのGAS_API_KEYと同じ値にしてください。
+  const API_KEY = '8169';
+
+  // SettingsシートのQUICK_RESOURCE_IDと合わせてください。
+  const RESOURCE_ID = 'room-3';
+
+  let latestOptions = null;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    tickClock();
+    setInterval(tickClock, 10000);
+    loadOptions();
+    setInterval(loadOptions, 60000);
+  });
+
+  function tickClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent = now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('today').textContent = now.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' });
+  }
+
+  function jsonp(params) {
+    return new Promise((resolve, reject) => {
+      if (!GAS_ENDPOINT || GAS_ENDPOINT.includes('ここに')) {
+        reject(new Error('GAS_ENDPOINTが未設定です。HTML内の設定を書き換えてください。'));
+        return;
+      }
+      const callbackName = 'gasCallback_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+      params.callback = callbackName;
+      params.apiKey = API_KEY;
+      params.resourceId = RESOURCE_ID;
+      const url = GAS_ENDPOINT + (GAS_ENDPOINT.includes('?') ? '&' : '?') + new URLSearchParams(params).toString();
+      const script = document.createElement('script');
+      const timer = setTimeout(() => {
+        cleanup();
+        reject(new Error('GAS APIの応答がタイムアウトしました。'));
+      }, 30000);
+      function cleanup() {
+        clearTimeout(timer);
+        delete window[callbackName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+      }
+      window[callbackName] = data => {
+        cleanup();
+        if (data && data.ok === false) reject(new Error(data.message || 'APIエラーです。'));
+        else resolve(data);
+      };
+      script.onerror = () => { cleanup(); reject(new Error('GAS APIを読み込めませんでした。URL、公開設定、APIキーを確認してください。')); };
+      script.src = url;
+      document.body.appendChild(script);
+    });
+  }
+
+  async function loadOptions() {
+    setStatus('info', '空き状況を確認しています...');
+    setBusy(true);
+    try {
+      const data = await jsonp({ api: 'quickOptions' });
+      latestOptions = data;
+      renderStartOptions(data.starts || [], data.defaultStartTime || '');
+      renderDurations(data.durations || []);
+      if (!data.starts || !data.starts.length) {
+        setStatus('warning', '本日予約できる空き時間がありません。');
+      } else {
+        setStatus('success', data.dateLabel + ' の予約可能時間を表示しています。');
+      }
+    } catch (err) {
+      setStatus('danger', err.message || String(err));
+      renderStartOptions([], '');
+      renderDurations([]);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function renderStartOptions(starts, defaultStart) {
+    const select = document.getElementById('startTime');
+    select.innerHTML = '';
+    if (!starts.length) {
+      select.appendChild(new Option('選択不可', ''));
+      return;
+    }
+    starts.forEach(t => select.appendChild(new Option(t, t)));
+    if (defaultStart && starts.includes(defaultStart)) select.value = defaultStart;
+  }
+
+  async function loadDurationsForSelectedStart() {
+    const startTime = document.getElementById('startTime').value;
+    if (!startTime) {
+      renderDurations([]);
+      return;
+    }
+    setBusy(true);
+    setStatus('info', '使用時間の候補を確認しています...');
+    try {
+      const data = await jsonp({ api: 'quickDurations', startTime: startTime });
+      renderDurations(data.durations || []);
+      if (!data.durations || !data.durations.length) setStatus('warning', 'この開始時刻で予約できる使用時間がありません。');
+      else setStatus('success', '選択した開始時刻で予約可能な使用時間を表示しています。');
+    } catch (err) {
+      setStatus('danger', err.message || String(err));
+      renderDurations([]);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function renderDurations(durations) {
+    const select = document.getElementById('durationMinutes');
+    select.innerHTML = '';
+    if (!durations.length) {
+      select.appendChild(new Option('選択不可', ''));
+      return;
+    }
+    durations.forEach(d => select.appendChild(new Option(d.label + '（終了 ' + d.endTime + '）', d.value)));
+    select.value = durations[0].value;
+  }
+
+  async function reserveNow(event) {
+    event.preventDefault();
+    const startTime = document.getElementById('startTime').value;
+    const durationMinutes = document.getElementById('durationMinutes').value;
+    if (!startTime || !durationMinutes) return;
+
+    setBusy(true);
+    setStatus('info', '予約を登録しています...');
+    try {
+      const data = await jsonp({
+        api: 'quickReserve',
+        startTime: startTime,
+        durationMinutes: durationMinutes
+      });
+      setStatus('success', data.message + '<br>' + data.reservation.resourceName + ' / ' + data.reservation.dateLabel + ' ' + data.reservation.startTime + '-' + data.reservation.endTime);
+      await loadOptions();
+      refreshCalendar();
+      setTimeout(refreshCalendar, 3000);
+    } catch (err) {
+      setStatus('danger', err.message || String(err));
+      await loadOptions();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function refreshCalendar() {
+    const frame = document.getElementById('calendarFrame');
+    if (!frame) return;
+    const baseSrc = frame.dataset.baseSrc || frame.src;
+    const separator = baseSrc.includes('?') ? '&' : '?';
+    frame.src = baseSrc + separator + 'refresh=' + Date.now();
+  }
+
+  function setStatus(type, html) {
+    const el = document.getElementById('status');
+    el.className = 'alert alert-' + type;
+    el.innerHTML = html;
+  }
+
+  function setBusy(flag) {
+    document.getElementById('reserveBtn').disabled = !!flag;
+  }
+</script>
+</body>
+</html>
