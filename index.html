@@ -15,6 +15,11 @@
     iframe { width: 100%; min-height: 620px; border: 0; border-radius: 14px; background: #fff; }
     .big-time { font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; line-height: 1; }
     .btn-reserve { font-size: 1.35rem; padding: 16px; border-radius: 14px; }
+    .usage-box { border-radius: 14px; padding: 14px; border: 1px solid #dbe3ef; background: #fff; }
+    .usage-label { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; border-radius: 999px; padding: 4px 10px; }
+    .usage-free { color: #0f5132; background: #d1e7dd; }
+    .usage-busy { color: #842029; background: #f8d7da; }
+    .usage-title { font-size: 1.05rem; font-weight: 700; margin-top: 8px; }
     @media (max-width: 768px) { iframe { min-height: 430px; } .brand-area { flex-direction: column; align-items: flex-start; gap: 8px; } .brand-copy { border-left: 0; padding-left: 0; } .brand-logo { width: min(200px, 64vw); } }
   </style>
 </head>
@@ -38,6 +43,11 @@
         <div class="card mb-3">
           <div class="card-body">
             <h2 class="h5 mb-3">今すぐ予約</h2>
+            <div id="currentUsage" class="usage-box mb-3">
+              <span class="usage-label usage-free">確認中</span>
+              <div class="usage-title">現在の利用状況を確認しています...</div>
+              <div class="small text-secondary"></div>
+            </div>
             <div id="status" class="alert alert-info">空き状況を確認しています...</div>
             <form id="quickForm" onsubmit="reserveNow(event)">
               <div class="mb-3">
@@ -52,7 +62,6 @@
               </div>
               <button class="btn btn-primary w-100 btn-reserve" id="reserveBtn" type="submit">この内容で予約</button>
             </form>
-            <a class="btn btn-outline-primary w-100 mt-2" href="https://script.google.com/macros/s/AKfycbyMnXzIbTTrUZPQCSawW_nM2Ei3smAQFRFoZxaZypNQbJMxf0Mls-jkPgmkLpzDKVWG/exec" target="_top" rel="noopener">他の会議室を予約する</a>
             <button class="btn btn-outline-secondary w-100 mt-2" onclick="loadOptions()">空き状況を更新</button>
           </div>
         </div>
@@ -62,10 +71,10 @@
         <div class="card">
           <div class="card-body">
             <h2 class="h5 mb-3">カレンダー</h2>
-       <iframe
+           <iframe
   id="calendarFrame"
-  data-base-src="https://calendar.google.com/calendar/embed?src=99d08bc66ff7f63982da0b9234c2cd93da58e7f5bc8fef5dd87ed19e6e4b3734%40group.calendar.google.com&ctz=Asia%2FTokyo"
-  src="https://calendar.google.com/calendar/embed?src=99d08bc66ff7f63982da0b9234c2cd93da58e7f5bc8fef5dd87ed19e6e4b3734%40group.calendar.google.com&ctz=Asia%2FTokyo"
+  data-base-src="https://calendar.google.com/calendar/embed?src=99d08bc66ff7f63982da0b9234c2cd93da58e7f5bc8fef5dd87ed19e6e4b3734%40group.calendar.google.com&ctz=Asia%2FTokyo&mode=WEEK"
+  src="https://calendar.google.com/calendar/embed?src=99d08bc66ff7f63982da0b9234c2cd93da58e7f5bc8fef5dd87ed19e6e4b3734%40group.calendar.google.com&ctz=Asia%2FTokyo&mode=WEEK"
   style="border: 0"
   width="800"
   height="600"
@@ -80,7 +89,7 @@
 
 <script>
   // GASをWebアプリとしてデプロイ後、「ウェブアプリURL」を貼り付けてください。
-  const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyMnXzIbTTrUZPQCSawW_nM2Ei3smAQFRFoZxaZypNQbJMxf0Mls-jkPgmkLpzDKVWG/exec';
+  const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwbefSVJkJrBFJrYkOuT1c1pmnHIa_8RALxLN4ne7r5jp6zIOCcBwrrpTadwl301bBT/exec';
 
   // GASのSettingsシートのGAS_API_KEYと同じ値にしてください。
   const API_KEY = '8169';
@@ -95,6 +104,7 @@
     setInterval(tickClock, 10000);
     loadOptions();
     setInterval(loadOptions, 60000);
+    setInterval(refreshCurrentStatus, 30000);
   });
 
   function tickClock() {
@@ -141,6 +151,7 @@
     try {
       const data = await jsonp({ api: 'quickOptions' });
       latestOptions = data;
+      renderCurrentStatus(data.currentStatus);
       renderStartOptions(data.starts || [], data.defaultStartTime || '');
       renderDurations(data.durations || []);
       if (!data.starts || !data.starts.length) {
@@ -150,6 +161,7 @@
       }
     } catch (err) {
       setStatus('danger', err.message || String(err));
+      renderCurrentStatus(null, err.message || String(err));
       renderStartOptions([], '');
       renderDurations([]);
     } finally {
@@ -200,6 +212,50 @@
     select.value = durations[0].value;
   }
 
+
+  async function refreshCurrentStatus() {
+    try {
+      const data = await jsonp({ api: 'quickStatus' });
+      renderCurrentStatus(data.currentStatus);
+    } catch (err) {
+      renderCurrentStatus(null, err.message || String(err));
+    }
+  }
+
+  function renderCurrentStatus(status, errorMessage) {
+    const el = document.getElementById('currentUsage');
+    if (!el) return;
+    if (errorMessage) {
+      el.innerHTML = '<span class="usage-label usage-busy">確認失敗</span>' +
+        '<div class="usage-title">現在の利用状況を取得できませんでした。</div>' +
+        '<div class="small text-secondary">' + escapeHtml(errorMessage) + '</div>';
+      return;
+    }
+    if (!status) {
+      el.innerHTML = '<span class="usage-label usage-free">確認中</span>' +
+        '<div class="usage-title">現在の利用状況を確認しています...</div>';
+      return;
+    }
+    if (status.using) {
+      el.innerHTML = '<span class="usage-label usage-busy">使用中</span>' +
+        '<div class="usage-title">' + escapeHtml(status.message || '使用中です。') + '</div>' +
+        '<div class="small text-secondary">' + escapeHtml((status.startTime || '') + ' - ' + (status.endTime || '') + ' / 確認 ' + (status.checkedAt || '')) + '</div>';
+    } else {
+      el.innerHTML = '<span class="usage-label usage-free">空き</span>' +
+        '<div class="usage-title">現在この会議室は空いています。</div>' +
+        '<div class="small text-secondary">確認 ' + escapeHtml(status.checkedAt || '') + '</div>';
+    }
+  }
+
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   async function reserveNow(event) {
     event.preventDefault();
     const startTime = document.getElementById('startTime').value;
@@ -229,7 +285,10 @@
   function refreshCalendar() {
     const frame = document.getElementById('calendarFrame');
     if (!frame) return;
-    const baseSrc = frame.dataset.baseSrc || frame.src;
+    let baseSrc = frame.dataset.baseSrc || frame.src;
+    if (!/[?&]mode=/.test(baseSrc)) {
+      baseSrc += (baseSrc.includes('?') ? '&' : '?') + 'mode=WEEK';
+    }
     const separator = baseSrc.includes('?') ? '&' : '?';
     frame.src = baseSrc + separator + 'refresh=' + Date.now();
   }
